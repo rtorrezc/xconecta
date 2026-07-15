@@ -12,7 +12,7 @@ const CONFIG = {
   whatsappMessage: "Hola, confirmo mi asistencia al Encuentro Nacional Yankee Boys 2026.",
 
   // Reemplaza por el enlace exacto de Google Maps cuando tengas el lugar.
-    mapsUrl: "https://www.google.com/maps/search/?api=1&query=Cochabamba%2C%20Boliviahttps://maps.app.goo.gl/qEozThLDQhJdsm6Q6",
+    mapsUrl: "https://maps.app.goo.gl/qEozThLDQhJdsm6Q6",
 
   locationText: "Salón de Eventos Dubai",
   description: "Encuentro Nacional Yankee Boys, 6 y 7 de agosto de 2026."

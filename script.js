@@ -3,17 +3,11 @@
 // ===============================
 const CONFIG = {
   eventName: "Encuentro Nacional Yankee Boys 2026",
-  // Ajusta la hora real del evento. Formato: AAAA-MM-DDTHH:MM:SS-04:00
   startDate: "2026-08-06T18:00:00-04:00",
   endDate: "2026-08-07T23:00:00-04:00",
-
-  // Reemplaza por el número real, sin +, espacios ni guiones.
   whatsappNumber: "59168496215",
   whatsappMessage: "Hola, confirmo mi asistencia al Encuentro Nacional Yankee Boys 2026.",
-
-  // Reemplaza por el enlace exacto de Google Maps cuando tengas el lugar.
-    mapsUrl: "https://maps.app.goo.gl/qEozThLDQhJdsm6Q6",
-
+  mapsUrl: "https://maps.app.goo.gl/qEozThLDQhJdsm6Q6",
   locationText: "Salón de Eventos Dubai",
   description: "Encuentro Nacional Yankee Boys, 6 y 7 de agosto de 2026."
 };
@@ -22,8 +16,7 @@ const $ = (id) => document.getElementById(id);
 
 function updateCountdown() {
   const eventTime = new Date(CONFIG.startDate).getTime();
-  const now = Date.now();
-  const distance = eventTime - now;
+  const distance = eventTime - Date.now();
 
   if (distance <= 0) {
     ["days", "hours", "minutes", "seconds"].forEach(id => $(id).textContent = "00");
@@ -38,8 +31,7 @@ function updateCountdown() {
 }
 
 function setupLinks() {
-  const wa = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(CONFIG.whatsappMessage)}`;
-  $("whatsapp-btn").href = wa;
+  $("whatsapp-btn").href = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(CONFIG.whatsappMessage)}`;
   $("maps-btn").href = CONFIG.mapsUrl;
 }
 
@@ -49,19 +41,14 @@ function formatCalendarDate(dateString) {
 
 function downloadCalendarEvent() {
   const ics = [
-    "BEGIN:VCALENDAR",
-    "VERSION:2.0",
+    "BEGIN:VCALENDAR", "VERSION:2.0",
     "PRODID:-//Yankee Boys Bolivia//Invitacion 2026//ES",
-    "BEGIN:VEVENT",
-    `UID:${Date.now()}@yankeeboys`,
+    "BEGIN:VEVENT", `UID:${Date.now()}@yankeeboys`,
     `DTSTAMP:${formatCalendarDate(new Date().toISOString())}`,
     `DTSTART:${formatCalendarDate(CONFIG.startDate)}`,
     `DTEND:${formatCalendarDate(CONFIG.endDate)}`,
-    `SUMMARY:${CONFIG.eventName}`,
-    `DESCRIPTION:${CONFIG.description}`,
-    `LOCATION:${CONFIG.locationText}`,
-    "END:VEVENT",
-    "END:VCALENDAR"
+    `SUMMARY:${CONFIG.eventName}`, `DESCRIPTION:${CONFIG.description}`,
+    `LOCATION:${CONFIG.locationText}`, "END:VEVENT", "END:VCALENDAR"
   ].join("\r\n");
 
   const blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
@@ -77,14 +64,13 @@ async function shareInvitation() {
   const shareData = {
     title: CONFIG.eventName,
     text: "Te invitamos al Encuentro Nacional Yankee Boys 2026 en Cochabamba.",
-    url: window.location.href
+    url: `${window.location.origin}${window.location.pathname}`
   };
 
   try {
-    if (navigator.share) {
-      await navigator.share(shareData);
-    } else {
-      await navigator.clipboard.writeText(window.location.href);
+    if (navigator.share) await navigator.share(shareData);
+    else {
+      await navigator.clipboard.writeText(shareData.url);
       alert("Enlace copiado.");
     }
   } catch (error) {
@@ -99,7 +85,7 @@ function revealOnScroll() {
     });
   }, { threshold: 0.14 });
 
-  document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+  document.querySelectorAll("main .reveal").forEach(el => observer.observe(el));
 }
 
 function launchConfetti() {
@@ -110,16 +96,55 @@ function launchConfetti() {
     piece.style.left = `${Math.random() * 100}vw`;
     piece.style.background = colors[Math.floor(Math.random() * colors.length)];
     piece.style.animationDuration = `${4 + Math.random() * 5}s`;
-    piece.style.animationDelay = `${Math.random() * 2}s`;
+    piece.style.animationDelay = `${Math.random() * 1.2}s`;
     container.appendChild(piece);
     setTimeout(() => piece.remove(), 11000);
   }
 }
 
+const backgroundMusic = $("background-music");
+const musicControl = $("music-control");
+
+async function playMusic() {
+  try {
+    await backgroundMusic.play();
+    musicControl.textContent = "🔊";
+    musicControl.classList.add("active");
+  } catch (error) {
+    musicControl.textContent = "🔇";
+    musicControl.classList.remove("active");
+    console.log("No se pudo reproducir YB.mp3. Verifica que esté en la raíz del repositorio.", error);
+  }
+}
+
+function pauseMusic() {
+  backgroundMusic.pause();
+  musicControl.textContent = "🔇";
+  musicControl.classList.remove("active");
+}
+
+async function openInvitation() {
+  await playMusic();
+  document.body.classList.remove("invitation-locked");
+  $("contenido-invitacion").setAttribute("aria-hidden", "false");
+  $("pie-invitacion").setAttribute("aria-hidden", "false");
+  musicControl.hidden = false;
+  launchConfetti();
+
+  requestAnimationFrame(() => {
+    $("invitacion").scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+}
+
 setupLinks();
 updateCountdown();
 setInterval(updateCountdown, 1000);
+revealOnScroll();
+
+$("open-invitation-btn").addEventListener("click", openInvitation);
 $("calendar-btn").addEventListener("click", downloadCalendarEvent);
 $("share-btn").addEventListener("click", shareInvitation);
-revealOnScroll();
-setTimeout(launchConfetti, 650);
+musicControl.addEventListener("click", async () => {
+  if (backgroundMusic.paused) await playMusic();
+  else pauseMusic();
+});

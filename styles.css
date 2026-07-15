@@ -254,10 +254,108 @@ footer {
 }
 
 @media (max-width: 720px) {
-  .hero { min-height: 82vh; }
+  .hero { min-height: 100dvh; }
   .section { padding: 70px 16px; }
   .countdown { grid-template-columns: repeat(2, 1fr); }
   .cards { grid-template-columns: 1fr; }
   .actions { flex-direction: column; }
   .action-btn { width: 100%; }
+}
+
+/* Pantalla de apertura obligatoria y música */
+body.invitation-locked {
+  height: 100dvh;
+  overflow: hidden;
+  overscroll-behavior: none;
+  touch-action: none;
+}
+
+body.invitation-locked main,
+body.invitation-locked footer {
+  display: none;
+}
+
+.hero {
+  min-height: 100vh;
+  min-height: 100svh;
+  min-height: 100dvh;
+  height: 100vh;
+  height: 100svh;
+  height: 100dvh;
+  overflow: hidden;
+  padding-top: max(24px, env(safe-area-inset-top));
+  padding-bottom: max(24px, env(safe-area-inset-bottom));
+}
+
+.primary-btn {
+  border: none;
+}
+
+.music-hint {
+  margin: 15px 0 0;
+  color: rgba(255,255,255,.82);
+  font-size: .82rem;
+  font-weight: 600;
+}
+
+.music-control {
+  position: fixed;
+  right: 18px;
+  bottom: calc(18px + env(safe-area-inset-bottom));
+  z-index: 100;
+  width: 54px;
+  height: 54px;
+  place-items: center;
+  border: 1px solid rgba(255,255,255,.25);
+  border-radius: 50%;
+  background: rgba(7,22,44,.92);
+  color: white;
+  font-size: 1.35rem;
+  cursor: pointer;
+  box-shadow: 0 12px 30px rgba(0,0,0,.4);
+  backdrop-filter: blur(10px);
+  transition: transform .2s ease, background .2s ease;
+}
+
+.music-control:not([hidden]) { display: grid; }
+.music-control:hover { transform: scale(1.08); }
+.music-control.active { background: linear-gradient(135deg, #f5cf69, #b86b0d); }
+
+@media (max-width: 720px) {
+  .hero {
+    min-height: 100vh;
+    min-height: 100svh;
+    min-height: 100dvh;
+    height: 100vh;
+    height: 100svh;
+    height: 100dvh;
+    padding: max(18px, env(safe-area-inset-top)) 20px max(18px, env(safe-area-inset-bottom));
+    background-position: center 28%;
+  }
+
+  .hero-content {
+    width: 100%;
+    transform: translateY(-1vh);
+  }
+
+  .hero .eyebrow {
+    font-size: clamp(.72rem, 3.1vw, .95rem);
+    letter-spacing: .18em;
+  }
+
+  .hero h1 {
+    font-size: clamp(4.3rem, 20vw, 7rem);
+    margin-bottom: 22px;
+  }
+
+  .hero-subtitle {
+    font-size: clamp(.95rem, 4.2vw, 1.18rem);
+    margin-bottom: 28px;
+  }
+
+  .primary-btn {
+    min-width: min(82vw, 330px);
+    min-height: 58px;
+    font-size: 1.08rem;
+  }
 }

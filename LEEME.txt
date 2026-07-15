@@ -1,0 +1,9 @@
+ARCHIVOS MODIFICADOS PARA GITHUB PAGES
+
+1. Sube todos los archivos de esta carpeta a la raíz del repositorio.
+2. También debes subir tu canción con el nombre exacto: YB.mp3
+3. Respeta mayúsculas y minúsculas: debe llamarse exactamente YB.mp3
+4. La portada ahora ocupa toda la pantalla del celular y bloquea el desplazamiento.
+5. El contenido solo se habilita al presionar “🎵 Ver invitación”.
+6. Al presionar el botón comienza la música, aparece el confeti y baja a la invitación.
+7. Comparte el enlace sin #invitacion: https://rtorrezc.github.io/xconecta/

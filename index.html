@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="theme-color" content="#07162c" />
   <meta name="description" content="Encuentro Nacional Yankee Boys 2026 en Cochabamba." />
   <title>Encuentro Nacional Yankee Boys 2026</title>
@@ -11,20 +11,23 @@
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
+<body class="invitation-locked">
   <div class="confetti" aria-hidden="true"></div>
 
-  <header class="hero">
+  <header class="hero" id="portada">
     <div class="hero-overlay"></div>
-    <div class="hero-content reveal">
+    <div class="hero-content reveal visible">
       <p class="eyebrow">Encuentro Nacional 2026</p>
       <h1>Yankee Boys</h1>
       <p class="hero-subtitle">6 y 7 de agosto · Cochabamba, Bolivia</p>
-      <a class="primary-btn" href="#invitacion">Ver invitación</a>
+      <button id="open-invitation-btn" class="primary-btn" type="button">
+        🎵 Ver invitación
+      </button>
+      <p class="music-hint">Presiona el botón para ingresar con música</p>
     </div>
   </header>
 
-  <main>
+  <main id="contenido-invitacion" aria-hidden="true">
     <section id="invitacion" class="section invitation-section">
       <div class="poster-wrap reveal">
         <img
@@ -73,25 +76,24 @@
       <h2>Confirma y acompáñanos</h2>
       <p>Usa los botones para confirmar, ver la ubicación o guardar la fecha.</p>
       <div class="actions">
-        <a id="whatsapp-btn" class="action-btn whatsapp" href="#" target="_blank" rel="noopener">
-          Confirmar por WhatsApp
-        </a>
-        <a id="maps-btn" class="action-btn" href="#" target="_blank" rel="noopener">
-          Ver ubicación
-        </a>
-        <button id="calendar-btn" class="action-btn" type="button">
-          Agregar al calendario
-        </button>
-        <button id="share-btn" class="action-btn secondary" type="button">
-          Compartir invitación
-        </button>
+        <a id="whatsapp-btn" class="action-btn whatsapp" href="#" target="_blank" rel="noopener">Confirmar por WhatsApp</a>
+        <a id="maps-btn" class="action-btn" href="#" target="_blank" rel="noopener">Ver ubicación</a>
+        <button id="calendar-btn" class="action-btn" type="button">Agregar al calendario</button>
+        <button id="share-btn" class="action-btn secondary" type="button">Compartir invitación</button>
       </div>
     </section>
   </main>
 
-  <footer>
+  <footer id="pie-invitacion" aria-hidden="true">
     <p>Yankee Boys de Bolivia · Cochabamba 2026</p>
   </footer>
+
+  <audio id="background-music" loop preload="auto">
+    <source src="YB.mp3" type="audio/mpeg">
+    Tu navegador no permite reproducir audio.
+  </audio>
+
+  <button id="music-control" class="music-control" type="button" aria-label="Activar o silenciar música" title="Activar o silenciar música" hidden>🔊</button>
 
   <script src="script.js"></script>
 </body>

@@ -198,6 +198,17 @@ h2 {
   margin-right: auto;
 }
 
+
+.promo-whatsapp {
+  width: fit-content;
+  margin: 18px auto 0 !important;
+  padding: 12px 20px;
+  border: 1px solid rgba(241,185,65,.45);
+  border-radius: 999px;
+  background: rgba(241,185,65,.1);
+  color: var(--gold-light) !important;
+}
+
 .actions {
   width: min(100%, 920px);
   margin: 30px auto 0;
